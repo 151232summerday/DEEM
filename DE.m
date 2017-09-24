@@ -1,4 +1,4 @@
-function offSubpopFinal = localDE(subpop, NS, lu, n, F, CR)
+function offSubpopFinal = DE(subpop, NS, lu, n, F, CR)
 
 offSubpop = zeros(NS, n);
 offSubpopFinal = [];

@@ -15,21 +15,24 @@ tic;
 %The defined parameters
 interval = 15;                        %the angle interval
 interval_num = fix(360/interval);     %the number of bins
-cut_in_speed = 3.5;                   %the value of cut-in speed 
-rated_speed = 14;                     %the value of rated speed 
-cut_out_speed = 25;                   %the value of cut-out speed 
+X = 2000;                             %the length of wind farm
+Y = 2000;                             %the width of wind farm
 R = 40;                               %the rotor radium
 H = 80;                               %the hub height 
 CT = 0.8;                             %the thrust coefficient
 a = 1 - sqrt(1 - CT);                 %the axial induction factor * 2
 kappa = 0.01;                         %the spreading constant for land case(z=80,zo=0.54)
+cut_in_speed = 3.5;                   %the value of cut-in speed 
+rated_speed = 14;                     %the value of rated speed 
+cut_out_speed = 25;                   %the value of cut-out speed 
 minDistance = 5 * R;                  %minimum distance between any two wind turbines
 N = 15;                               %the number of wind turbines
-X = 2000;                             %the length of wind farm
-Y = 2000;                             %the width of wind farm
+X = 2000;                           %the length of wind farm
+Y = 2000; %the width of wind farm
 %Different number of wind turbines and the corresponding side lengthes in my paper
 %[15,20,25,30,35,40,60,80,100]
 %[2000,2000,2000,2200,2400,2600,3100,3600,4000]
+
 
 %Values of parameters k and c in weibull distribution and the frequency associated with each wind direction interval
 k(1:interval_num) = 2;
@@ -43,6 +46,10 @@ fre = [0.0003	0.0072	0.0237	0.0242	0.0222	0.0301	0.0397	0.0268	0.0626 ...
 %c(1:interval_num) = 13;
 %fre = [0,0.01,0.01,0.01,0.01,0.2,0.6,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0];
 
+
+
+
+
 %Parameters of caching technique 
 global thetaVeldefijMatrix;
 thetaVeldefijMatrix = zeros(N,N,interval_num);
@@ -50,6 +57,13 @@ global thetaVeldefijBackup;
 thetaVeldefijBackup = thetaVeldefijMatrix;
 global turbineMoved;
 turbineMoved(1:N) = 0;
+
+maxEvaluations = 500;
+evaluations = 0;
+
+%set the random seed
+[temp]=random_seed(); 
+rand('seed',temp); 
 
 %Set the solution space of every turbines
 constraint(1)=R;        %the lower constraint in X direction
@@ -62,19 +76,13 @@ lu=[constraint(1),constraint(3);
     constraint(2),constraint(4)];
 F = 0.9;
 CR = 0.9;
-candidatePos = [];         %record candidate positions of wind turbines
+candidate = [];
 parent(1 : 2 * N) = 0;        
 offspring(1 : 2 * N) = 0;
-maxEvaluations = 500;
-evaluations = 0;
-
-%set the random seed
-[temp]=random_seed(); 
-rand('seed',temp); 
 
 %Initialize the population
-j = 1;   %the jth wind turbine
-conflict = 0;
+j=1;   %the jth wind turbine
+conflict=0;
 while(j <= N)
     parent(2 * j-1) = constraint(1)+(X - R) * rand();  % X coordinate
     parent(2 * j) = constraint(3)+(Y - R) * rand();    % Y coordinate
@@ -110,11 +118,11 @@ while(evaluations < maxEvaluations)
     offspring = parent;
     
     %Generate candidate positions of wind turbines
-    if(isempty(candidatePos))
-        candidatePos = DE(offspring, N, lu, 2, F, CR);
+    if(isempty(candidate))
+        candidate = DE(offspring, N, lu, 2, F, CR);
     end
-    newPos =  candidatePos(1 : 2);
-    candidatePos(1 : 2) = [];
+    newPos =  candidate(1 : 2);
+    candidate(1 : 2) = [];
     
     offspring = generate_new_layout(newPos, offspring,N, X,Y,minDistance);
    

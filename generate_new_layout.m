@@ -1,4 +1,4 @@
-function[muSolution]=mutationOperatorExecute(newpoint, solution, N,...,
+function[muSolution]=generate_new_layout(newpoint, solution, N,...,
                      X,Y,minimumDistance1)
 
     global turbineMoved;
