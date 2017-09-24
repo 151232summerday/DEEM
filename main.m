@@ -12,7 +12,8 @@ clc;
 clear;
 
 %The defined parameters
-interval = 15;                      %the angle interval 
+interval = 15;                      %the angle interval
+interval_num = fix(360/interval);   % the number of bins
 input_filename='scenario1.xlsx';    %the data input file
 output_filename='data1.xlsx';       %the data output file
 X=2000;                             %the length of wind farm
@@ -24,7 +25,7 @@ a=1-sqrt(1-CT);                     %the axial induction factor * 2
 kappa=0.01;             %the spreading constant for land case(z=80,zo=0.54)
 
 %load the wind speed data
-interval_num = fix(360/interval);             % the number of bins
+
 
 %change natural wind speed into effective wind speed
 cut_in_speed=3.5;              %the value of cut-in speed 
