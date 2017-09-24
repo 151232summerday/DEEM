@@ -1,5 +1,5 @@
-function[power_eva]=eva_power(interval_dir_num,interval_dir,N,coordinate, ...,
-           a,kappa,R,k,c,cut_in_speed,rated_speed,cut_out_speed,evaluate_method)
+function[power_eva]=eva_power(interval_dir_num, interval_dir, N, coordinate, ...,
+           a, kappa, R, k, c, cut_in_speed, rated_speed, cut_out_speed, evaluate_method)
 
 % interval_dir : the wind direction of the wind interval
 % N : the fixed number of wind turbines
@@ -17,9 +17,9 @@ function[power_eva]=eva_power(interval_dir_num,interval_dir,N,coordinate, ...,
 
 %calculate the velocity deficit of every turbines in this wind direction
 if(strcmp(evaluate_method, 'caching'))
-    [vel_def] = eva_func_deficit_caching(interval_dir_num,N,coordinate,interval_dir,a,kappa,R);
+    [vel_def] = eva_func_deficit_caching(interval_dir_num ,N, coordinate, interval_dir, a, kappa, R);
 else
-    [vel_def] = eva_func_deficit(interval_dir_num,N,coordinate,interval_dir,a,kappa,R);
+    [vel_def] = eva_func_deficit(interval_dir_num, N, coordinate, interval_dir, a, kappa, R);
 end
 
 %calculate the new parameter c corresponding to the velocity deficit
