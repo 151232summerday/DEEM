@@ -1,8 +1,11 @@
 clc;
 clear;
 
-%exp(7.5)*5
-1/1500
+def = 2;
+restrict(def,1)
+
+
+
 
 
 

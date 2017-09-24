@@ -5,7 +5,7 @@
 
 % Reference: Y. Wang, H. Liu, H. Long, Z. Zhang and S. Yang. Differential Evolution with A New Encoding
 % Mechanism for Optimizing Wind Farm Layout,
-% in press, DOI: 
+% in press, DOI:10.1109/TII.2017.2743761
 %****************************************************************************************************
 
 clc;
@@ -70,7 +70,8 @@ evaluations = 0;
 
 %set the random seed
 [temp] = random_seed(); 
-rand('seed',temp); 
+%rand('seed',temp); 
+rand('seed',12); 
 
 %Initialize the population
 j = 1;   %the jth wind turbine
@@ -141,5 +142,5 @@ while(evaluations < maxEvaluations)
 end
 print_turbine2(N,X,Y,parent);
 fprintf('The coordinates of wind turbines are');
-parent
+%parent
 toc;
