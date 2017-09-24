@@ -1,10 +1,8 @@
 clc;
 clear;
 
-global turbineMoved;
-turbineMoved(1:10) = 0
-turbineMoved(3) = 1
-turbineMoved(1:10) = 0
+%exp(7.5)*5
+1/1500
 
 
 

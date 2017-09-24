@@ -1,6 +1,6 @@
 %evaluation function for phase two (velocity deficit)
 
-function[vel_def]=eva_func_deficit(interval_dir_num,N,coordinate,theta,a,kappa,R)
+function[vel_def]=eva_func_deficit_caching(interval_dir_num,N,coordinate,theta,a,kappa,R)
 
 % N : the fixed number of wind turbines
 % revise_Dx : the length of wind cell in X axis direction

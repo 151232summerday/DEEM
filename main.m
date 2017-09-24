@@ -32,34 +32,34 @@ Y = 2000;                             %the width of wind farm
 %[2000,2000,2000,2200,2400,2600,3100,3600,4000]
 
 %Values of parameters k and c in weibull distribution and the frequency associated with each wind direction interval
-k(1:interval_num) = 2;
+k(1 : interval_num) = 2;
 c = [7 5 5 5 5 4 5 6 7 7 8 9.5 10 8.5 8.5 6.5 4.6 2.6 8 5 6.4 5.2 4.5 3.9];
 fre = [0.0003	0.0072	0.0237	0.0242	0.0222	0.0301	0.0397	0.0268	0.0626 ...	
     0.0801	0.1025	0.1445	0.1909	0.1162	0.0793	0.0082	0.0041	0.0008 ...	
     0.0010	0.0005	0.0013	0.0031	0.0085	0.0222];
 
 %If you want to test DEEM in wind scenario 2, please uncomment the following code
-%k(1:interval_num) = 2;
-%c(1:interval_num) = 13;
+%k(1 : interval_num) = 2;
+%c(1 : interval_num) = 13;
 %fre = [0,0.01,0.01,0.01,0.01,0.2,0.6,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0];
 
 %Parameters of caching technique 
 global thetaVeldefijMatrix;
-thetaVeldefijMatrix = zeros(N,N,interval_num);
+thetaVeldefijMatrix = zeros(N, N, interval_num);
 global thetaVeldefijBackup;
 thetaVeldefijBackup = thetaVeldefijMatrix;
 global turbineMoved;
-turbineMoved(1:N) = 0;
+turbineMoved(1 : N) = 0;
 
 %Set the solution space of every turbines
-constraint(1)=R;        %the lower constraint in X direction
-constraint(2)=X-R;      %the upper constraint in X direction 
-constraint(3)=R;        %the lower constraint in Y direction
-constraint(4)=Y-R;      %the upper constraint in Y direction
+constraint(1) = R;        %the lower constraint in X direction
+constraint(2) = X - R;    %the upper constraint in X direction 
+constraint(3) = R;        %the lower constraint in Y direction
+constraint(4) = Y - R;    %the upper constraint in Y direction
 
 %Parameters of DE
-lu=[constraint(1),constraint(3);
-    constraint(2),constraint(4)];
+lu=[constraint(1), constraint(3);
+    constraint(2), constraint(4)];
 F = 0.9;
 CR = 0.9;
 candidatePos = [];         %record candidate positions of wind turbines
@@ -69,7 +69,7 @@ maxEvaluations = 500;
 evaluations = 0;
 
 %set the random seed
-[temp]=random_seed(); 
+[temp] = random_seed(); 
 rand('seed',temp); 
 
 %Initialize the population
@@ -102,8 +102,8 @@ while(j <= N)
     end
 end
 
-powerOutputParent = fitness(interval_num,interval,fre,N,parent(1,:), ...,
-                   a,kappa,R,k,c,cut_in_speed,rated_speed,cut_out_speed,'o');
+powerOutputParent = fitness(interval_num,interval,fre,N,parent, ...,
+                   a,kappa,R,k,c,cut_in_speed,rated_speed,cut_out_speed,'origin');
 
 while(evaluations < maxEvaluations)
    
@@ -120,7 +120,7 @@ while(evaluations < maxEvaluations)
    
     thetaVeldefijBackup = thetaVeldefijMatrix;
     powerOutputOffspring = fitness(interval_num,interval,fre,N,offspring(1,:), ...,
-                          a,kappa,R,k,c,cut_in_speed,rated_speed,cut_out_speed,'f');
+                          a,kappa,R,k,c,cut_in_speed,rated_speed,cut_out_speed,'caching');
            
     %Update the population                 
     if(powerOutputParent <powerOutputOffspring)
