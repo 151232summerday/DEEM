@@ -1,14 +1,15 @@
-% coordinate_scenario1: main function
+%****************************************************************************************************
+% Author: Hao Liu and Yong Wang
+% Last Edited: 9/24/2017
+% Email: haoliu@csu.edu.cn@163.com; ywang@csu.edu.cn
+
+% Reference: Y. Wang, H. Liu, H. Long, Z. Zhang and S. Yang. Differential Evolution with A New Encoding
+% Mechanism for Optimizing Wind Farm Layout,
+% in press, DOI: 
+%****************************************************************************************************
+
 clc;
 clear;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%The adjusted parameters-the number of turbines%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-N=10;                               %the number of turbines
-
-%%%%%%%%%%%%%%%%%%%%%%%%
-%Other parameters setup%
-%%%%%%%%%%%%%%%%%%%%%%%%
 
 %The defined parameters
 interval = 15;                      %the angle interval 
@@ -20,7 +21,7 @@ R=40;                               %the rotor radium
 H=80;                               %the hub height 
 CT=0.8;                             %the thrust coefficient
 a=1-sqrt(1-CT);                     %the axial induction factor * 2
-kappa=0.01;            %the spreading constant for land case(z=80,zo=0.54)
+kappa=0.01;             %the spreading constant for land case(z=80,zo=0.54)
 
 %load the wind speed data
 [typ, desc] = xlsfinfo(input_filename);       %load data into matlab
@@ -72,7 +73,7 @@ populationsize=1;         %the number of individuals
 maxEvaluations = 150000;
 minimumDistance1 = 5*R;%进化过程中最小距离
 repeatTimes = 10;%每种情况跑5次
-diffN = [15,20,25,30,35,40,60,80,100];
+diffN = [15,20,25,30,35,40,60,80,100];%different number of individuals 
 diffSideLength = [2000,2000,2000,2200,2400,2600,3100,3600,4000];
 cases = length(diffN);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
