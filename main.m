@@ -1,10 +1,10 @@
 %****************************************************************************************************
 % Author: Hao Liu and Yong Wang
-% Last Edited: 9/24/2017
+% Last Edited: 24/09/2017
 % Email: haoliu@csu.edu.cn; ywang@csu.edu.cn
 
 % Reference: Y. Wang, H. Liu, H. Long, Z. Zhang and S. Yang. Differential Evolution with A New Encoding
-% Mechanism for Optimizing Wind Farm Layout,
+% Mechanism for Optimizing Wind Farm Layout, IEEE Transactions on Industrial Informatics, 
 % in press, DOI:10.1109/TII.2017.2743761
 %****************************************************************************************************
 
